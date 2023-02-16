@@ -24,7 +24,7 @@ console.assert(1 === true);
 // Alancance de variables. SIEMPRE USA LET (a menos que sepas que haces y tengas razones para usar VAR)
 // Con let el alcance es en función 
 // Con var el alcance es global
-for(let i = 1; i<=10; i++){
+for(var i = 1; i<=10; i++){
     console.log(i);
 }
 console.log(i);
@@ -54,3 +54,28 @@ console.log(numero_tacos());
 let cantidad_tacos = () => {return 5;}
 
 console.log(cantidad_tacos());
+
+// html  dinámico con eventos
+let boton = document.getElementById("buenos_dias");
+boton.innerHTML = "Buenos días!";
+boton.onclick = () => alert("Bueeeeeeeenos díassssssss!");
+
+// arreglos
+const arreglo = ["Elemento"];
+
+// Se pueden añadir cosas al array
+arreglo.push("Otro Elemento");
+arreglo["dos"] = 2;
+arreglo.length = 10;
+arreglo[20] = "fin del arreglo";
+
+console.log(arreglo);
+
+for (let elemento in arreglo) {
+    console.log(elemento);
+}
+
+for (let valor of arreglo) {
+    console.log(valor);
+}
+
