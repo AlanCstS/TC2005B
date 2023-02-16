@@ -79,3 +79,21 @@ for (let valor of arreglo) {
     console.log(valor);
 }
 
+// Objetos
+const objeto = {
+    atributo_1: "valor 1",
+    atributo_2: 2
+}
+
+console.log(objeto.atributo_1);
+console.log(objeto.atributo_2);
+objeto.atributo_3 = "tres";
+
+console.log(objeto);
+
+for(let elemento in objeto) {
+    console.log(elemento);
+}
+
+const arreglo_de_objetos = [{atributo_1: "valor 0"}, {atributo_2: 1}, objeto];
+console.log(arreglo_de_objetos);
