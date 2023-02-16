@@ -20,3 +20,37 @@ console.assert(1 === "1");
 console.assert(1 == "1");
 console.assert(1 == true);
 console.assert(1 === true);
+
+// Alancance de variables. SIEMPRE USA LET (a menos que sepas que haces y tengas razones para usar VAR)
+// Con let el alcance es en función 
+// Con var el alcance es global
+for(let i = 1; i<=10; i++){
+    console.log(i);
+}
+console.log(i);
+
+// alert, prompt, confirm
+alert("hola!");
+
+let nombre = prompt("¿Cómo te llamas?");
+
+console.log("Hola " + nombre);
+
+let is_hungry = confirm("¿Tienes habmre?");
+
+console.log(is_hungry);
+
+
+
+// funciones tradicionales
+function numero_tacos () {
+    return 5;
+}
+
+console.log(numero_tacos());
+
+
+// funciones modernas
+let cantidad_tacos = () => {return 5;}
+
+console.log(cantidad_tacos());
