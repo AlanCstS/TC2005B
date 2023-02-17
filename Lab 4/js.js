@@ -56,9 +56,14 @@ let cantidad_tacos = () => {return 5;}
 console.log(cantidad_tacos());
 
 // html  dinámico con eventos
-let boton = document.getElementById("buenos_dias");
-boton.innerHTML = "Buenos días!";
-boton.onclick = () => alert("Bueeeeeeeenos díassssssss!");
+let boton = document.getElementById("respuestas");
+boton.innerHTML = "Enseñar Respuestas";
+boton.onclick = () => {
+    document.getElementById("Preguntas").innerHTML =
+    document.write(
+        
+    )
+}
 
 // arreglos
 const arreglo = ["Elemento"];
