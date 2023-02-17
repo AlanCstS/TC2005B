@@ -59,10 +59,8 @@ console.log(cantidad_tacos());
 let boton = document.getElementById("respuestas");
 boton.innerHTML = "Enseñar Respuestas";
 boton.onclick = () => {
-    document.getElementById("Preguntas").innerHTML =
-    document.write(
-        
-    )
+    document.getElementById("preguntas_lab4").innerHTML =
+    "Las respuestas"    
 }
 
 // arreglos
