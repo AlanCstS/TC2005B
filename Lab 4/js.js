@@ -26,8 +26,33 @@ if(resultado == respuesta){
 }
 
 // Ejercicio 3:
+function contador (array) {
+  let negativos = 0;
+  let ceros = 0;
+  let positivos = 0;
+  let ej3 = document.getElementById("ej3");
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] < 0) {
+      negativos++;
+    } else if (array[i] === 0) {
+      ceros++;
+    } else {
+      positivos++;
+    }
+  }
+  ej3.innerHTML += `Números negativos: ${negativos}<br>
+  Número de 0's: ${ceros}<br>
+  Número de positivos: ${positivos}<br>`;
+  return [negativos, ceros, positivos];
+}
+// Fuente de los assert: chat.openai.com/chat
+console.assert(JSON.stringify(contador([1, 2, 0, -1, -2])) === JSON.stringify([2, 1, 2]));
+console.assert(JSON.stringify(contador([0, 0, 0])) === JSON.stringify([0, 3, 0]));
+
+// Ejercicio 4:
 
 
+// Botón
 let boton = document.getElementById("respuestas");
 let textoVisible = true;
 boton.onclick = () => {
