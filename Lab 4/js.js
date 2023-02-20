@@ -82,11 +82,9 @@ function inverso(num) {
     En inverso: ${resultado}<br>`;
   return (resultado);
 }
-
 // Prueba
 console.assert(inverso(Math.floor(Math.random() * 100000)));
 console.assert(inverso(Math.floor(Math.random() * 100000)))
-
 
 // Botón
 let boton = document.getElementById("respuestas");
@@ -95,17 +93,46 @@ boton.onclick = () => {
     let texto = `
     <ul class="preguntas">
         <li><b>¿Qué diferencias y semejanzas hay entre Java y JavaScript?</b></li>
-        Resp
+        Java y JavaScript son dos lenguajes de programación diferentes, aunque ambos son muy populares en el desarrollo web. Algunas de las diferencias entre ambos son:
+        <ul><li>Java es un lenguaje de programación orientado a objetos, mientras que JavaScript es un lenguaje de programación interpretado, orientado a objetos y funcional.</li>
+        <li>Java se compila en código de bytes, mientras que JavaScript es interpretado por el navegador.</li>
+        <li>Java es un lenguaje compilado, mientras que JavaScript es un lenguaje interpretado.</li>
+        <li>Java se usa principalmente para crear aplicaciones de escritorio, servidores y dispositivos móviles, mientras que JavaScript se usa principalmente para crear aplicaciones web, incluyendo front-end y back-end.</li>
+        <li>Java tiene una sintaxis más estricta, mientras que JavaScript tiene una sintaxis más flexible.</li></ul>
+
+        <br>A pesar de estas diferencias, hay algunas similitudes entre ambos lenguajes:
+        <ul<li>Ambos son orientados a objetos y permiten crear clases y objetos.</li>
+        <li>Ambos permiten crear funciones y utilizar programación funcional.</li>
+        <li>Ambos tienen una gran comunidad de desarrolladores y una amplia variedad de bibliotecas y frameworks disponibles.</li></ul>
+        
         <li><b>¿Qué métodos tiene el objeto Date? (Menciona al menos 5*)</b></li>
-        Resp
-        <li><b>¿Qué métodos tiene el objeto Date? (Menciona al menos 5*)</b></li>
-        Resp
-        <li><b>¿Qué métodos tiene el objeto Date? (Menciona al menos 5*)</b></li>
-        Resp
-        <li><b>¿Qué métodos tiene el objeto Date? (Menciona al menos 5*)</b></li>
-        Resp
+        El objeto Date es utilizado en JavaScript para trabajar con fechas y horas. Algunos de los métodos disponibles en este objeto son:
+        <ul>
+        <li>getDate(): Retorna el día del mes de una fecha.</li>
+        <li>getMonth(): Retorna el mes de una fecha (0 para enero, 1 para febrero, etc.).</li>
+        <li>getFullYear(): Retorna el año de una fecha.</li>
+        <li>getHours(): Retorna la hora de una fecha.</li>
+        <li>getMinutes(): Retorna los minutos de una fecha.</li>
+        </ul>   
+
+        <li><b>¿Qué métodos tienen los arreglos? (Menciona al menos 5*))</b></li>
+        Los arreglos en JavaScript tienen muchos métodos útiles. Algunos de ellos son:
+        <ul>
+        <li>push(): Añade un elemento al final del arreglo.</li>
+        <li>pop(): Elimina el último elemento del arreglo y lo retorna.</li>
+        <li>shift(): Elimina el primer elemento del arreglo y lo retorna.</li>
+        <li>unshift(): Añade un elemento al principio del arreglo.</li>
+        <li>splice(): Permite añadir, eliminar o reemplazar elementos de un arreglo.</li>
+        </ul>
+
+        <li><b>¿Cómo se declara una variable con alcance local dentro de una función?</b></li>
+        Para declarar una variable con alcance local dentro de una función, se utiliza la palabra clave let o const, seguida del nombre de la variable y, opcionalmente, su valor inicial.
+        
+        <li><b>¿Qué implicaciones tiene utilizar variables globales dentro de funciones?</b></li>
+        Utilizar variables globales dentro de funciones puede trarnos ciertas dificultades no deseadas, como el razonamiento, porque si se estas variables se modifican en varias partes del código, puede ser difícil detectar como funcionan las funciones que usen estas variables.
+        También puede implicar un riesgo en la repetición de los nombres, puesto que si se usan muchos nombres de variables globales, es muy problable que haya colisiones entre ellas, casuando errores difíciles de depurar.
     </ul>          
-  `;
+    `;
 
   let elemento = document.getElementById("preguntas-respuestas");
 
