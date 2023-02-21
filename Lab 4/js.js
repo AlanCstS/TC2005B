@@ -87,10 +87,7 @@ console.assert(inverso(Math.floor(Math.random() * 100000)));
 console.assert(inverso(Math.floor(Math.random() * 100000)))
 
 // Botón
-let boton = document.getElementById("respuestas");
-let textoVisible = true;
-boton.onclick = () => {
-    let texto = `
+let texto = `
     <ul class="preguntas">
         <li><b>¿Qué diferencias y semejanzas hay entre Java y JavaScript?</b></li>
         Java y JavaScript son dos lenguajes de programación diferentes, aunque ambos son muy populares en el desarrollo web. Algunas de las diferencias entre ambos son:
@@ -133,6 +130,9 @@ boton.onclick = () => {
         También puede implicar un riesgo en la repetición de los nombres, puesto que si se usan muchos nombres de variables globales, es muy problable que haya colisiones entre ellas, casuando errores difíciles de depurar.
     </ul>          
     `;
+let boton = document.getElementById("respuestas");
+let textoVisible = true;
+boton.onclick = () => {
 
   let elemento = document.getElementById("preguntas-respuestas");
 
