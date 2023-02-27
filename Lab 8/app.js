@@ -29,3 +29,14 @@ const server = http.createServer( (request, response) => {
 });
 
 server.listen(3000);
+
+function promedio(arreglo){
+    let prom = 0;
+    for(let i = 0; i< arreglo.length; i++){
+        prom += arreglo[i];
+    }
+    return prom/arreglo.length
+}
+
+let res = promedio(arreglo);
+console.log("El promedio es: " + res);
