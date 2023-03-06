@@ -1,0 +1,11 @@
+.top-bar,
+.menu-text,
+.has-submenu {
+    background-color: rgb(41, 56, 66);
+    color: gray;
+}
+#contraseñas{
+    padding-top: 5%;
+    padding-left: 25%;
+    padding-right: 25%;
+}
