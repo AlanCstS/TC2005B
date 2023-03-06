@@ -48,3 +48,4 @@ function escribirString(str){
 
 escribirString("Esto es parte de una función del laboratorio 8");
 console.log("Archivo de texto con string 'Esto es parte de una función del laboratorio 8' creado exitosamente!");
+
