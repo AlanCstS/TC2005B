@@ -2,6 +2,11 @@
 
 <h1 class="title" style="text-align: center;">Pilotos de F1</h1>
 
+<div class="d-flex justify-content-start" style="padding-left: 100px;">
+  <a href="/nuevo" class="btn btn-secondary" role="button">Regitrar Piloto</a>
+</div>
+<br>
+
 <% if (pilotos.length > 0) { %>
     <div class="columns">
         <% let columns = 0; %>
@@ -20,7 +25,7 @@
                   <div class="col-md-8">
                     <div class="card-body">
                       <h5 class="card-title"><%= piloto.nombre %></h5>
-                      <h6 class="card-title" style="color: grey;"><%= piloto.equipo %></h6>
+                      <h6 class="card-title" style="color: grey;">@<%= piloto.equipo %></h6>
                       <p class="card-text"><%= piloto.descripcion %></p>
                       <p class="card-text"><small class="text-body-secondary"><%= piloto.pais%></small></p>
                     </div>
@@ -33,7 +38,7 @@
 
 <% } else { %>
     <h1>No hay pilotos registrados</h1>
-<% } %>   
+<% } %>  
 
 <%- include('includes/foot.ejs') %>
 
