@@ -3,10 +3,10 @@
 <h1 class="title" style="text-align: center;">Pilotos de F1</h1>
 
 <div class="d-flex justify-content-start" style="padding-left: 100px;">
-  <a href="/nuevo" class="btn btn-secondary" role="button">Registrar Piloto</a>
+  <a href="/pilotos/nuevo" class="btn btn-secondary" role="button">Registrar Piloto</a>
 </div>
 <br>
-
+<!-- <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded"></div> -->
 <% if (pilotos.length > 0) { %>
     <div class="columns">
         <% let columns = 0; %>
@@ -39,6 +39,12 @@
 <% } else { %>
     <h1>No hay pilotos registrados</h1>
 <% } %>  
+
+<% if (ultimo_piloto != '') { %>
+    <div class="alert alert-success" role="alert">
+      Último piloto agregado: <%= ultimo_piloto %>
+    </div>
+<% } %>
 
 <%- include('includes/foot.ejs') %>
 

@@ -5,6 +5,7 @@ exports.get_nuevo = (request, response, next) => {
 };
 
 exports.post_nuevo = (request,response,next) => {
+
     const piloto = new Piloto({
         nombre: request.body.nombre,
         equipo: request.body.equipo,
@@ -13,9 +14,25 @@ exports.post_nuevo = (request,response,next) => {
     });
 
     piloto.save();
-    response.redirect('/');
+
+    request.session.ultimo_piloto = piloto.nombre;
+
+    response.redirect('/pilotos/');
 }
 
 exports.listar = (request,response,next) => {
-    response.render('lista', {pilotos: Piloto.fetchAll() });
+
+    //Crear variable para que si no hay cookie se cuente con un string para hacer el split
+    let cookies = request.get('Cookie') || '';
+
+    let consultas = cookies.split(';')[0].split('=')[1] || 0;
+
+    consultas++;
+
+    response.setHeader('Set-Cookue', 'consultas=' + consultas + '; HttpOnly');
+    
+    response.render('lista', {
+        pilotos: Piloto.fetchAll(),
+        ultimo_piloto: request.session.ultimo_piloto || '',
+     });
 };
