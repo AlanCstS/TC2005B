@@ -15,7 +15,7 @@ exports.post_nuevo = (request,response,next) => {
 
     piloto.save();
 
-    request.session.ultimo_piloto = piloto.nombre;
+    request.session.ultimo_piloto = piloto.nombre + ' | ' + piloto.equipo;
 
     response.redirect('/pilotos/');
 }
