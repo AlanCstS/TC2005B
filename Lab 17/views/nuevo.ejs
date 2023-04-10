@@ -1,0 +1,23 @@
+<%- include('includes/head.ejs') %>
+
+<h1 class="title">Registrar nuevo Piloto</h1>
+
+<form action="/pilotos/nuevo" method="POST">
+    <div style="padding: 0px 20px 20px 20px;">
+        <label for="nombre">Nombre:</label>
+        <input required name="nombre" type="text" class="form-control" placeholder="Piloto de F1" aria-label="Username">
+        <br>
+        <label for="nombre">Equipo:</label>
+        <input required name="equipo" type="text" class="form-control" placeholder="Equipo" aria-label="Username">
+        <br>
+        <label for="nombre">Descripcion:</label>
+        <input name="descripcion" type="text" class="form-control" placeholder="Descripcion" aria-label="Username">
+        <br>
+        <label for="nombre">Pais:</label>
+        <input name="pais" type="text" class="form-control" placeholder="Pais" aria-label="Username">
+        <br>
+        <input class="btn btn-success" type="submit" value="Registrar">
+    </div>    
+</form>
+
+<%- include('includes/foot.ejs') %>
