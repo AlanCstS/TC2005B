@@ -2,12 +2,12 @@ const express = require('express');
 
 const router = express.Router();
 
-const pilotosControler = require('../controllers/pilotos.controller');
+const pilotosController = require('../controllers/pilotos.controller');
 
-router.get('/nuevo', pilotosControler.get_nuevo);
+router.get('/nuevo', pilotosController.get_nuevo);
 
-router.post('/nuevo', pilotosControler.post_nuevo);
+router.post('/nuevo', pilotosController.post_nuevo);
 
-router.get('/', pilotosControler.listar);
+router.get('/', pilotosController.listar);
 
 module.exports = router;

@@ -29,7 +29,7 @@ exports.listar = (request,response,next) => {
 
     consultas++;
 
-    response.setHeader('Set-Cookue', 'consultas=' + consultas + '; HttpOnly');
+    response.setHeader('Set-Cookie', 'consultas=' + consultas + '; HttpOnly');
     
     response.render('lista', {
         pilotos: Piloto.fetchAll(),
