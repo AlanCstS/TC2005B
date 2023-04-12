@@ -5,7 +5,7 @@ module.exports = class Piloto {
     constructor(nuevo_piloto) {
         this.nombre = nuevo_piloto.nombre || 'Piloto de Formula 1';
         this.imagen = nuevo_piloto.imagen || 'https://us.123rf.com/450wm/mialima/mialima1603/mialima160300025/55096766-hombre-icono-de-usuario-aislado-en-un-fondo-blanco-avatar-cuenta-para-la-web-foto-de-perfil-de.jpg?ver=6';
-        this.equipo = nuevo_piloto.equipo || 'Equipo no registrado';
+        this.equipo = nuevo_piloto.equipo || 'Error';
         this.pais = nuevo_piloto.pais || 'Pais no registrado';
         this.descripcion = nuevo_piloto.descripcion || 'Un gran piloto muy rápido'
     }
@@ -28,18 +28,18 @@ module.exports = class Piloto {
         );
     }
 
-    static fetchOne(ID) {
+    static fetchOne(id) {
         return db.execute(
             `SELECT p.ID, p.nombre, p.imagen, p.descripcion, p.pais, p.created_at, e.nombre as equipo
             FROM pilotos p, equipos e
             WHERE p.equipo_ID = e.ID AND e.ID = ?
-            `, [ID]
+            `, [id]
         );
     }
 
-    static fetch(ID) {
-        if (ID) {
-            return Piloto.fetchOne(ID);
+    static fetch(id) {
+        if (id) {
+            return Piloto.fetchOne(id);
         } else {
             return Piloto.fetchAll();
         }

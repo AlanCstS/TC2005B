@@ -1,7 +1,15 @@
 const Piloto = require('../models/pilotos.models');
+const Equipo = require('../models/equipos.models')
 
 exports.get_nuevo = (request, response, next) => {
-    response.render('nuevo');
+    
+    Equipo.fetchAll()
+    .then(([rows, fieldData]) => {
+        response.render('nuevo', {
+            equipos: rows,
+        });
+    }).catch(error => console.log(error));
+    
 };
 
 exports.post_nuevo = (request,response,next) => {
@@ -13,11 +21,17 @@ exports.post_nuevo = (request,response,next) => {
         pais: request.body.pais,
     });
 
-    piloto.save();
+    piloto.save()
+    .then(([rows, fieldData]) => {
 
-    request.session.ultimo_piloto = piloto.nombre + ' | ' + piloto.equipo;
+        request.session.mensaje = "Piloto registrado exitosamente";
 
-    response.redirect('/pilotos/');
+        request.session.ultimo_piloto = piloto.nombre;
+
+        response.redirect('/pilotos/');
+    }).catch((error) => {console.log(error)});
+
+    
 }
 
 exports.listar = (request,response,next) => {
@@ -29,10 +43,25 @@ exports.listar = (request,response,next) => {
 
     consultas++;
 
-    response.setHeader('Set-Cookue', 'consultas=' + consultas + '; HttpOnly');
+    response.setHeader('Set-Cookie', 'consultas=' + consultas + '; HttpOnly');
+
+    let mensaje = '';
+
+    if(request.session.mensaje) {
+        mensaje = request.session.mensaje;
+        request.session.mensaje = '';
+    }
     
-    response.render('lista', {
-        pilotos: Piloto.fetchAll(),
-        ultimo_piloto: request.session.ultimo_piloto || '',
-     });
+    Piloto.fetch(request.params.id)
+    .then(([rows, fieldData]) => {
+        console.log(rows);
+
+        response.render('lista', {
+            pilotos: rows,
+            ultimo_piloto: request.session.ultimo_piloto || '',
+            mensaje: mensaje,
+        });
+    })
+    .catch(err => {console.log(err);});
+    
 };

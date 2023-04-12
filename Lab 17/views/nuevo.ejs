@@ -2,22 +2,26 @@
 
 <h1 class="title">Registrar nuevo Piloto</h1>
 
-<form action="/pilotos/nuevo" method="POST">
-    <div style="padding: 0px 20px 20px 20px;">
-        <label for="nombre">Nombre:</label>
-        <input required name="nombre" type="text" class="form-control" placeholder="Piloto de F1" aria-label="Username">
-        <br>
-        <label for="equipo">Equipo:</label>
-        <input required name="equipo" type="text" class="form-control" placeholder="Equipo" aria-label="Username">
-        <br>
-        <label for="descripcion">Descripcion:</label>
-        <input name="descripcion" type="text" class="form-control" placeholder="Descripcion" aria-label="Username">
-        <br>
-        <label for="pais">Pais:</label>
-        <input name="pais" type="text" class="form-control" placeholder="Pais" aria-label="Username">
-        <br>
-        <input class="btn btn-success" type="submit" value="Registrar">
-    </div>    
+<form action="/pilotos/nuevo" method="POST" style="padding: 0px 40px 20px 40px;">
+
+    <label for="nombre">Nombre:</label>
+    <input required name="nombre" id="nombre" type="text" class="form-control" placeholder="Piloto de F1" aria-label="Username">
+    <br>
+    <label for="equipo">Equipo:</label>
+    <select class="form-select" name="equipo" id="equipo">
+        <% for (let equipo of equipos) { %>
+            <option value="<%= equipo.ID %>"><%= equipo.nombre %></option>
+        <% } %>
+    </select>
+    <br>
+    <label for="descripcion">Descripcion:</label>
+    <input name="descripcion" id="descripcion" type="text" class="form-control" placeholder="Descripcion" aria-label="Username">
+    <br>
+    <label for="pais">Pais:</label>
+    <input name="pais" id="pais" type="text" class="form-control" placeholder="Pais" aria-label="Username">
+    <br>
+    <input class="btn btn-success" type="submit" value="Registrar">
+        
 </form>
 
 <%- include('includes/foot.ejs') %>
