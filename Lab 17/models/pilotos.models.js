@@ -32,7 +32,7 @@ module.exports = class Piloto {
         return db.execute(
             `SELECT p.ID, p.nombre, p.imagen, p.descripcion, p.pais, p.created_at, e.nombre as equipo
             FROM pilotos p, equipos e
-            WHERE p.equipo_ID = e.ID AND e.ID = ?
+            WHERE p.equipo_ID = e.ID AND p.ID = ?
             `, [id]
         );
     }
