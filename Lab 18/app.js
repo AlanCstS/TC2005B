@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
+const isAuth = require('./util/is-auth');
+const csrf = require('csurf');
+const csrfProtection = csrf();
 
 const app = express();
 
@@ -17,6 +20,13 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
+
+//CSRF Protection
+app.use(csrfProtection); 
+app.use((request, response, next) => {
+    response.locals.csrfToken = request.csrfToken();
+    next();
+});
 
 //Middleware
 app.use((request, response, next) => {
@@ -39,7 +49,7 @@ app.use('/usuarios', rutasUsuarios);
 
 const rutasFormula1 = require('./routes/formula1.routes');
 
-app.use('/pilotos', rutasFormula1);
+app.use('/pilotos', isAuth, rutasFormula1);
 
 const rutasPagina = require('./routes/pagina.routes');
 

@@ -1,5 +1,5 @@
 const Piloto = require('../models/pilotos.models');
-const Equipo = require('../models/equipos.models')
+const Equipo = require('../models/equipos.models');
 
 exports.get_nuevo = (request, response, next) => {
     
@@ -7,6 +7,8 @@ exports.get_nuevo = (request, response, next) => {
     .then(([rows, fieldData]) => {
         response.render('nuevo', {
             equipos: rows,
+            isLoggedIn: request.session.isLoggedIn || false,
+            nombre: request.session.nombre || '',
         });
     }).catch(error => console.log(error));
     
@@ -60,6 +62,8 @@ exports.listar = (request,response,next) => {
             pilotos: rows,
             ultimo_piloto: request.session.ultimo_piloto || '',
             mensaje: mensaje,
+            isLoggedIn: request.session.isLoggedIn || false,
+            nombre: request.session.nombre || '',
         });
     })
     .catch(err => {console.log(err);});
