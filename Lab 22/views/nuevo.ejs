@@ -1,30 +1,45 @@
 <%- include('includes/head.ejs') %>
 
-<h1 class="title">Registrar nuevo Piloto</h1>
+<% if (piloto) { %>
+    <h1 class="title">Editar nuevo Piloto</h1>
+    <form action="/pilotos/editar" method="POST" enctype="multipart/form-data" style="padding: 0px 40px 20px 40px;">
+        <input type="hidden" name="ID" value="<%= piloto.ID %>">
+<% } else { %>
+    <h1 class="title">Registrar nuevo Piloto</h1>
+    <form action="/pilotos/nuevo" method="POST" enctype="multipart/form-data" style="padding: 0px 40px 20px 40px;">
+<% } %>
 
-<form action="/pilotos/nuevo" method="POST" enctype="multipart/form-data" style="padding: 0px 40px 20px 40px;">
     <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
 
     <label for="nombre">Nombre:</label>
-    <input required name="nombre" id="nombre" type="text" class="form-control" placeholder="Piloto de F1" aria-label="Username">
+    <input required name="nombre" id="nombre" type="text" class="form-control" placeholder="Piloto de F1" aria-label="Username"
+        value="<% if(piloto) { %> <%= piloto.nombre %> <% } %>">
     <br>
     <label for="equipo">Equipo:</label>
     <select class="form-select" name="equipo" id="equipo">
         <% for (let equipo of equipos) { %>
-            <option value="<%= equipo.ID %>"><%= equipo.nombre %></option>
-        <% } %>
+            <option value="<%= equipo.ID %>" <% if(piloto.equipo == equipo.ID) { %> selected <% } %>>
+                <%= equipo.nombre %>
+            </option>
+        <% } %> <% console.log(piloto.equipo) %>
     </select>
     <br>
     <label for="descripcion">Descripcion:</label>
-    <input name="descripcion" id="descripcion" type="text" class="form-control" placeholder="Descripcion" aria-label="Username">
+    <input name="descripcion" id="descripcion" type="text" class="form-control" placeholder="Descripcion" aria-label="Username"
+        value="<% if (piloto) { %> <%= piloto.descripcion %> <% } %>">
     <br>
     <label for="pais">Pais:</label>
-    <input name="pais" id="pais" type="text" class="form-control" placeholder="Pais" aria-label="Username">
+    <input name="pais" id="pais" type="text" class="form-control" placeholder="Pais" aria-label="Username"
+        value="<% if (piloto) { %> <%= piloto.pais %> <% } %>">
     <br>
     <label for="imagen">Imagen:</label>
     <input name="imagen" id="imagen" type="file" class="form-control">
     <br>
-    <input class="btn btn-success" type="submit" value="Registrar">
+    <% if(piloto) { %>
+        <input class="btn btn-success" type="submit" value="Editar">
+    <% } else { %>
+        <input class="btn btn-success" type="submit" value="Registrar">
+    <% } %>
         
 </form>
 
