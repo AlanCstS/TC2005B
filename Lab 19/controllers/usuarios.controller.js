@@ -27,9 +27,24 @@ exports.post_login = (req, res, next) => {
                 if(doMatch) {
                     req.session.isLoggedIn = true;
                     req.session.nombre = rows[0].nombre;
-                    return req.session.save(err => {
+                    Usuario.fetchPrivilegios(rows[0].username)
+                    .then(([consulta_privis, fieldData]) => {
+                        console.log(consulta_privis);
+
+                        const privilegios = [];
+                        for(let privilegio of consulta_privis) {
+                            privilegios.push(privilegio.nombre);
+                        }
+                        
+                        req.session.privilegios = privilegios
+                        console.log("Privilegios de sesión: " + req.session.privilegios);
+
+                        return req.session.save(err => {
                         res.redirect('/pilotos');
-                    });
+                        });
+                    })
+                    .catch((error) => console.log(error));
+                    
 
                 } else {
                     req.session.mensaje = 'Usuario y/o contraseña incorrectos';
@@ -73,8 +88,8 @@ exports.post_signup = (req, res, next) => {
     Usuario.fetchOne(req.body.username)
     .then(([rows, fieldData]) => {
         if (rows.length > 0){
-            req.session.mensaje = "Usuario ya existente, eliga otro!"
-            res.redirect('/usuarios/signup')
+            req.session.mensaje = "Usuario ya existente, eliga otro por favor!";
+            res.redirect('/usuarios/signup');
         } else {
             usuario.save()
             .then(([rows, fieldData]) => {

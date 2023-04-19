@@ -2,9 +2,11 @@
 
 <h1 class="title" style="text-align: center;">Pilotos de F1</h1>
 
+<% if (privilegios.indexOf('registrar_pilotos') >= 0) { %>
 <div class="d-flex justify-content-start" style="padding-left: 100px;">
   <a href="/pilotos/nuevo" class="btn btn-secondary" role="button">Registrar Piloto</a>
 </div>
+<% } %>
 
 <br>
 
