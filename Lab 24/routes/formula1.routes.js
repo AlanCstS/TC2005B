@@ -6,6 +6,8 @@ const hasCreate = require('../util/has-create');
 
 const pilotosController = require('../controllers/pilotos.controller');
 
+router.get('/buscar/:valor_busqueda', pilotosController.get_buscar);
+
 router.get('/editar/:id', hasCreate, pilotosController.get_editar);
 
 router.get('/editar', hasCreate, pilotosController.get_nuevo);

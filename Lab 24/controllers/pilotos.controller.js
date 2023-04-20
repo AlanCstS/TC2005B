@@ -1,6 +1,21 @@
 const Piloto = require('../models/pilotos.models');
 const Equipo = require('../models/equipos.models');
 
+exports.get_buscar = (req, res, next) => {
+    Piloto.find(req.params.valor_busqueda)
+    .then(([rows,fieldData]) => {
+        res.status(200).json({
+            pilotos: rows,
+            privilegios: req.session.privilegios || [],
+         });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({message: "Internal Server Error"});
+    });
+
+};
+
 exports.get_editar = (req, res, next) => {
     
     Piloto.fetchOne(req.params.id)

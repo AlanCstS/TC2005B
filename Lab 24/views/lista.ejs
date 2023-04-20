@@ -16,13 +16,15 @@
   </div>
 <% } %>
 
+<div id="resultados">
 <% if (pilotos.length > 0) { %>
     <div class="columns">
         <% let columns = 0; %>
         <% for (var piloto of pilotos) { %>
             <% if (columns % 2 == 0) { %>
     </div>
-    <div class="row" style="padding-left: 100px;">
+    <div class="columns">
+      <div class="row" style="padding-left: 100px;">
         <div class="col-sm-6 mb-3 mb-sm-0">
             <% } %>
             <% columns++; %>
@@ -37,7 +39,7 @@
                       <% if (privilegios.indexOf('registrar_pilotos') >= 0) { %>
                         <div class="d-flex flex-nowrap"> 
                       <% } %>
-                      <h5 class="card-title"><%= piloto.nombre %></h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                      <h5 class="card-title" id="nmbre"><%= piloto.nombre %></h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                       <% if (privilegios.indexOf('registrar_pilotos') >= 0) { %>  
                         <a class="btn btn-outline-success" type="button" href="/pilotos/editar/<%= piloto.ID %>"  style="height:40px;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -66,16 +68,96 @@
         </div>
         <% } %>
     </div>
-
+    </div>
 <% } else { %>
     <h1>No hay pilotos registrados</h1>
-<% } %>  
+<% } %>
+</div>
 
 <% if (ultimo_piloto != '') { %>
     <div class="alert alert-success" role="alert">
       Último piloto agregado: <%= ultimo_piloto %>
     </div>
 <% } %>
+
+<script>
+  document.getElementById("buscar").onkeyup = () => {
+    // Función que manda la petición asíncrona
+    const valor_busqueda = document.getElementById("buscar").value;
+    
+    console.log(valor_busqueda);
+
+    fetch('/pilotos/buscar/' + valor_busqueda, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then(result => {
+      return result.json(); // Regresa otra promesa
+    }).then(data => {
+      // Modificamos el DOM de nuestra página de acuerdo a los datos de la segunda promesa
+      console.log(data.pilotos);
+      console.log(data.privilegios);
+      let respuesta = "";
+      if(data.pilotos.length > 0) {
+        respuesta += '<div class = "columns">';
+          let columns = 0;
+          for (let piloto of data.pilotos) {
+            if (columns % 2 == 0) { 
+              respuesta += '</div>';
+              respuesta +=  '<div class="row" style="padding-left: 100px;">';
+              respuesta += '<div class="col-sm-6 mb-3 mb-sm-0">';
+            }
+            columns++;
+            respuesta += '<div class="card mb-3" style="max-width: 540px;">';
+              respuesta += '<div class="row g-0">';
+                respuesta += '<div class="col-md-4">';
+                  respuesta += '<img src="/uploads/' + piloto.imagen + '" class="img-fluid " alt="Placeholder image">';
+                respuesta += '</div>';
+                respuesta += '<div class="col-md-8">';
+                  respuesta += '<div class="card-body">';
+                    if (data.privilegios.indexOf('registrar_pilotos') >= 0) {
+                      respuesta += '<div class="d-flex flex-nowrap"> ';
+                    }
+                    respuesta += '<h5 class="card-title">' + piloto.nombre + '</h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
+                    if (data.privilegios.indexOf('registrar_pilotos') >= 0) {  
+                      respuesta += '<a class="btn btn-outline-success" type="button" href="/pilotos/editar/' + piloto.ID + '"  style="height:40px;">';
+                        respuesta += '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">';
+                          respuesta += '<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>';
+                        respuesta += '</svg>';
+                      respuesta += '</a>&nbsp&nbsp&nbsp&nbsp';
+                      respuesta += '<a class="btn btn-outline-danger" type="button" href="/pilotos/borrar/' + piloto.ID + '" style="height:40px;">';
+                        respuesta += '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">';
+                          respuesta += '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>';
+                          respuesta += '<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>';
+                        respuesta += '</svg>';
+                        respuesta += '</a>';
+                      respuesta += '</div>';
+                    } 
+
+                    respuesta += '<h6 class="card-title" style="color: grey;">@' + piloto.equipo + '</h6>';
+                    respuesta += '<p class="card-text">' + piloto.descripcion + '</p>';
+                    respuesta += '<div class="card-text"><small class="text-body-secondary">';
+                      respuesta += '<p>De ' + piloto.pais + '</p>';
+                      respuesta += '<time datetime="' + piloto.created_at + '">' + piloto.created_at + '</time>';
+                    respuesta += '</small></div>';
+                  respuesta += '</div>';
+                respuesta += '</div>';
+              respuesta += '</div>';
+            respuesta += '</div>';
+          respuesta += '</div>';
+          }
+        respuesta += '</div>';
+
+      } else { 
+        respuesta += '<h1>No hay pilotos registrados</h1>';
+      }
+      document.getElementById("resultados").innerHTML = respuesta;
+
+      }).catch(err => {console.log(err);
+      });
+  }
+</script>
 
 <%- include('includes/foot.ejs') %>
 

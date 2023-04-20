@@ -4,7 +4,6 @@ const path = require('path');
 const session = require('express-session');
 const isAuth = require('./util/is-auth');
 const csrf = require('csurf');
-const csrfProtection = csrf();
 const multer = require('multer');
 
 const app = express();
@@ -18,6 +17,7 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 //fileStorage: Es nuestra constante de configuración para manejar el almacenamiento
 const fileStorage = multer.diskStorage({
@@ -42,6 +42,7 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 //CSRF Protection
+const csrfProtection = csrf();
 app.use(csrfProtection); 
 app.use((request, response, next) => {
     response.locals.csrfToken = request.csrfToken();

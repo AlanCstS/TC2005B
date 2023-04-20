@@ -64,5 +64,16 @@ module.exports = class Piloto {
             `, [id]
         );
     }
+
+    static find(valor_busqueda) {
+        return db.execute(`
+            SELECT p.ID, p.nombre, p.imagen, p.descripcion, p.created_at, p.pais, e.nombre as equipo
+            FROM pilotos p, equipos e
+            WHERE p.equipo_ID = e.ID 
+                AND (p.nombre LIKE ? OR p.descripcion LIKE ? OR e.nombre LIKE ?)
+        `, [ '%' + valor_busqueda + '%', '%' + valor_busqueda + '%', '%' + valor_busqueda + '%' ]
+        );
+    }
+
 }
 
