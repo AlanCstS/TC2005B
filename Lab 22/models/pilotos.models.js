@@ -45,6 +45,19 @@ module.exports = class Piloto {
         }
     }
 
+    static update(nombre, imagen, descripcion, e_ID, pais, id) {
+        return db.execute(`
+            UPDATE pilotos
+            SET nombre = ?,
+            imagen = ?,
+            descripcion = ?,
+            equipo_ID = ?,
+            pais = ?
+            WHERE pilotos.ID = ?
+            `, [nombre, imagen, descripcion, e_ID, pais, id]
+        );
+    }
+
     static delete(id) {
         return db.execute(
             `DELETE FROM pilotos WHERE pilotos.ID = ?

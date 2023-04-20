@@ -8,7 +8,6 @@ exports.get_editar = (req, res, next) => {
         if(piloto_consulta.length == 1) {
 
             const piloto = new Piloto({
-                ID: piloto_consulta[0].ID,
                 nombre: piloto_consulta[0].nombre,
                 imagen: piloto_consulta[0].imagen,
                 descripcion: piloto_consulta[0].descripcion,
@@ -23,6 +22,7 @@ exports.get_editar = (req, res, next) => {
                     isLoggedIn: req.session.isLoggedIn || false,
                     nombre: req.session.nombre || '',
                     piloto: piloto || false,
+                    id: req.params.id
                 });
             }).catch(error => console.log(error));
 
@@ -35,10 +35,31 @@ exports.get_editar = (req, res, next) => {
 exports.post_editar = (req, res, next) => {
     console.log("Datos a editar:");
     console.log(req.body);
+    // Permite NO subir imagen
+    let imagen = 'placeholder.jpg';
+    if (req.file) {
+        imagen = req.file.filename;
+    };
 
+    const nombre = req.body.nombre,
+          equipo = req.body.equipo,
+          descripcion = req.body.descripcion,
+          pais = req.body.pais,
+          id = req.params.id;
+    console.log(req.params.id);
+    if(id){
+        Piloto.update(nombre,imagen,descripcion,equipo,pais,id)
+        .then(([rows, fieldData]) =>{ console.log(rows)
+            req.session.mensaje = 'Piloto actualizado exitosamente';
+            req.session.ultimo_piloto = nombre;
+            res.redirect('/pilotos');
+        }).catch(error => console.log(error));
+    } else {
+        res.redirect('/pilotos');
+    }
 };
 
-exports.get_borrar = (req, res, next) => {
+exports.borrar = (req, res, next) => {
     
     const id = req.params.id;
     if(id){
@@ -70,10 +91,11 @@ exports.get_nuevo = (request, response, next) => {
 };
 
 exports.post_nuevo = (request,response,next) => {
-    //console.log(request.file);
+    
     let imagen = '';
     if (request.file) {
-        imagen = request.file.filename 
+        imagen = request.file.filename;
+        console.log(request.file);
     };
 
     const piloto = new Piloto({

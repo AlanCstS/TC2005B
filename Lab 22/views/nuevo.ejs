@@ -1,9 +1,9 @@
 <%- include('includes/head.ejs') %>
 
 <% if (piloto) { %>
-    <h1 class="title">Editar nuevo Piloto</h1>
-    <form action="/pilotos/editar" method="POST" enctype="multipart/form-data" style="padding: 0px 40px 20px 40px;">
-        <input type="hidden" name="ID" value="<%= piloto.ID %>">
+    <h1 class="title">Editar Piloto | <%= piloto.nombre %></h1> 
+    <form action="/pilotos/editar/<%= id %>" method="POST" enctype="multipart/form-data" style="padding: 0px 40px 20px 40px;">
+        <input type="hidden" name="ID" value="<%= id %>">
 <% } else { %>
     <h1 class="title">Registrar nuevo Piloto</h1>
     <form action="/pilotos/nuevo" method="POST" enctype="multipart/form-data" style="padding: 0px 40px 20px 40px;">
@@ -21,7 +21,7 @@
             <option value="<%= equipo.ID %>" <% if(piloto.equipo == equipo.ID) { %> selected <% } %>>
                 <%= equipo.nombre %>
             </option>
-        <% } %> <% console.log(piloto.equipo) %>
+        <% } %>
     </select>
     <br>
     <label for="descripcion">Descripcion:</label>
